@@ -3,7 +3,9 @@
 from core.main import PDFClouder
 
 pdf = 'examples/SRC-Wilhelm.pdf'
-#pdf = '/Users/mwilhelm/Desktop/nessa.pdf'
+pdf = '/Users/mwilhelm/Desktop/nessa.pdf'
+#pdf = '/Users/mwilhelm/Desktop/MobiCom_2012/mobicom/p17.pdf'
+
 pdfc = PDFClouder(pdf)
 
 result = pdfc.get_histo()

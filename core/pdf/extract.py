@@ -70,6 +70,9 @@ class PDFExtractor(object):
         hyph = None
         
         for word in words:
+            if not word:
+                continue
+            
             if hyph:
                 word = hyph + word
                 hyph = None
