@@ -52,7 +52,7 @@ class PDFExtractor(object):
         # Extract single words from one long raw string
         words = []
         for word in raw_words.split():
-            word = word.strip('.,:;()')
+            word = word.strip(u'.,:;()"\u201d\u201c')
             
             if word:
                 results = [word]
@@ -86,7 +86,7 @@ class PDFExtractor(object):
         return res_words
     
     def replace_unicode(self, word):
-        lig_map = {u'\ufb01':'fi', u'\ufb02':'fl',
+        lig_map = {u'\ufb01':'fi', u'\ufb02':'fl', u'\ufb00':'ff', u'\ufb03':'ffi',
                    u'\u2019':"'", u'\u2013':'-', 
                    u'\u201d':'"', u'\u201c':'"'}
         
@@ -96,7 +96,7 @@ class PDFExtractor(object):
         return word
         
     def zap_punctuation(self, word):
-        if word and word[0] == '[' and word[-1] == ']':
+        if word and word[0] == '[' or word[-1] == ']':
             word = None
         
         if word and len(word) == 1 and not word.isalpha():
@@ -108,7 +108,7 @@ class PDFExtractor(object):
         return word
 
 if __name__ == '__main__':
-    pdfex = PDFExtractor('examples/SRC-Wilhelm.pdf')
+    pdfex = PDFExtractor('/Users/mwilhelm/Desktop/nessa.pdf')
     
     words = pdfex.get_words()
     
