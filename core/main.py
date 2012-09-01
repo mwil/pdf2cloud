@@ -10,8 +10,8 @@ from core.filter.single import SingleExtractor
 from core.filter.pair import PairExtractor
 from core.filter.dedup import DeDuplicate
 
-from core.histo.histogram import Histogram
-
+# Bundle together the PDF extraction and the processing steps on the extracted words
+#
 class PDFClouder(object):
     def __init__(self, pdf):
         self.pdf = pdf
