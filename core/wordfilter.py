@@ -5,13 +5,17 @@ Created on 31.08.2012
 @email: mwilhelm.kl@gmail.com
 '''
 
+from os.path import join, dirname
+
+RESOURCE_PATH = join(dirname(__file__), '..', 'resources')
+
 class WordFilter(object):
     def __init__(self):
-        with open('resources/common.txt', 'r') as fd:
+        with open(join(RESOURCE_PATH, 'common.txt'), 'r') as fd:
             self.common = set([word.strip() for word in fd.readlines()])
-        with open('resources/paper.txt', 'r') as fd:
+        with open(join(RESOURCE_PATH, 'paper.txt'), 'r') as fd:
             self.paper = set([word.strip() for word in fd.readlines()])
-        with open('resources/verbs.txt', 'r') as fd:
+        with open(join(RESOURCE_PATH, 'verbs.txt'), 'r') as fd:
             self.verbs = set([word.strip() for word in fd.readlines()])
             
             

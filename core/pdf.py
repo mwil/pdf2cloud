@@ -16,7 +16,7 @@ class PDFExtractor(object):
         self.pdf = pdf
     
     # returns a list of 'words,' a sequence of letters with whitespace in-between.    
-    def get_words(self, cleanup=True):
+    def get_words(self, cleanup=True, refs=False):
         rsrcmgr = PDFResourceManager()
         raw_words = StringIO()
         device = TextConverter(rsrcmgr, raw_words, codec='utf-8', laparams=LAParams())
@@ -30,11 +30,11 @@ class PDFExtractor(object):
         words = self.split_n_merge(raw_words)
             
         if cleanup:
-            words = self.cleanup_words(words)
+            words = self.cleanup_words(words, refs=refs)
              
         return words
     
-    def cleanup_words(self, words):
+    def cleanup_words(self, words, refs=False):
         clean_words = []
         
         for word in words:
@@ -43,7 +43,7 @@ class PDFExtractor(object):
             
             if word:
                 # Try to cut off References section (that is hopefully at the end) ...
-                if word not in ['References', 'REFERENCES']:
+                if refs or word not in ['References', 'REFERENCES']:
                     clean_words.append(word)
                 else:
                     break

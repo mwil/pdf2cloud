@@ -19,7 +19,7 @@ class Histogram(defaultdict):
         data = sorted(self.iteritems(), key=itemgetter(1), reverse=True)
         return '\n'.join(['%s: %i' % (word, cnt) for word, cnt in data if cnt > 1])
     
-    def flatten(self):
+    def flatten(self, min_cnt=1):
         for word, cnt in self.items():
-            if cnt > 1:
+            if cnt > min_cnt:
                 print ' '.join([word.encode('utf-8') for word in [word]*cnt]),

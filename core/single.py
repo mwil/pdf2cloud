@@ -6,7 +6,7 @@ Created on 01.09.2012
 '''
 
 from wordfilter import WordFilter
-from ..histo.histogram import Histogram
+from histogram import Histogram
 
 class SingleExtractor(object):
     def __init__(self):

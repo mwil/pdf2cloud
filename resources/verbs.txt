@@ -9,3 +9,11 @@ enables
 start
 need
 needs
+ask
+asks
+asked
+do
+does
+did
+made
+make

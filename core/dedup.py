@@ -5,7 +5,7 @@ Created on 01.09.2012
 @email: mwilhelm.kl@gmail.com
 '''
 
-from ..histo.histogram import Histogram
+from histogram import Histogram
 
 class DeDuplicate(object):
     def __init__(self):

@@ -33,6 +33,7 @@ paper
 papers
 present
 presents
+presented
 show
 shows
 shown
@@ -43,3 +44,11 @@ able
 propose
 proposes
 proposed
+therefore
+thus
+let
+case
+lead
+leads
+given
+known
