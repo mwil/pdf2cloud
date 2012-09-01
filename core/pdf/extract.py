@@ -42,7 +42,11 @@ class PDFExtractor(object):
             word = self.zap_punctuation(word)
             
             if word:
-                clean_words.append(word)
+                # Try to cut off References section (that is hopefully at the end) ...
+                if word not in ['References', 'REFERENCES']:
+                    clean_words.append(word)
+                else:
+                    break
             
         return clean_words
     

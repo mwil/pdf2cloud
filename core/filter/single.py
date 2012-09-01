@@ -12,6 +12,7 @@ class SingleExtractor(object):
     def __init__(self):
         self.wf = WordFilter()
     
+    ##################################################
     
     # Filter out words that are not wanted for the tag cloud and return a histogram
     # of it, a defaultdict with words as keys and counts as values.

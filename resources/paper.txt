@@ -29,3 +29,17 @@ section
 sec
 sect
 table
+paper
+papers
+present
+presents
+show
+shows
+shown
+consider
+considered
+considers
+able
+propose
+proposes
+proposed
