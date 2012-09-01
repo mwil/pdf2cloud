@@ -101,3 +101,7 @@ us
 is
 are
 am
+been
+has
+was
+were

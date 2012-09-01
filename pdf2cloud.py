@@ -1,16 +1,15 @@
 #! /usr/bin/env python
 
+import sys
 from core.main import PDFClouder
 
-pdf = 'examples/SRC-Wilhelm.pdf'
-pdf = '/Users/mwilhelm/Desktop/nessa.pdf'
-#pdf = '/Users/mwilhelm/Desktop/MobiCom_2012/mobicom/p17.pdf'
-
+if len(sys.argv) > 1:
+    pdf = sys.argv[1]
+else:
+    #pdf = 'examples/SRC-Wilhelm.pdf'
+    #pdf = '/Users/mwilhelm/Desktop/nessa.pdf'
+    pdf = '/Users/mwilhelm/Desktop/MobiCom_2012/mobicom/p89.pdf'
+    
 pdfc = PDFClouder(pdf)
-
 result = pdfc.get_histo()
-
-for word, cnt in result:
-    if cnt > 1:
-        #print '%s: %i' % (word.encode('utf-8'), cnt)
-        print ' '.join([word.encode('utf-8') for word in [word]*cnt]),
+result.flatten()

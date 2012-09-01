@@ -81,7 +81,7 @@ class PDFExtractor(object):
                 hyph = word[:-1]
                 continue
             
-            if not word.isalpha() and not word.find('-'):
+            if not word.isalpha() and word.find('-') == -1:
                 continue
             
             res_words.append(word)

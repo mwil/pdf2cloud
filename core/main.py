@@ -5,11 +5,10 @@ Created on 31.08.2012
 @email: mwilhelm.kl@gmail.com
 '''
 
-from collections import defaultdict
-from operator import itemgetter
-
 from core.pdf.extract import PDFExtractor
-from core.spell.wordfilter import WordFilter
+from core.filter.single import SingleExtractor
+from core.filter.pair import PairExtractor
+from core.filter.capital import Decap
 
 class PDFClouder(object):
     def __init__(self, pdf):
@@ -17,17 +16,16 @@ class PDFClouder(object):
         
     def get_histo(self):
         pdfex = PDFExtractor(self.pdf)
-        wf = WordFilter()
+        single = SingleExtractor()
+        pair = PairExtractor()
+        decap = Decap()
         
         words = pdfex.get_words(cleanup=True)
         
-        words = wf.filter(words)
+        singles = single.extract(words)
+        pairs = pair.extract(words)
         
-        dw = defaultdict(int)
+        histo = pair.dedup(singles, pairs)
+        histo = decap.decap(histo)
         
-        for word in words:
-            dw[word] += 1
-            
-        hist = sorted(dw.iteritems(), key=itemgetter(1), reverse=True)
-        
-        return hist
+        return histo
