@@ -8,7 +8,9 @@ Created on 31.08.2012
 from core.pdf.extract import PDFExtractor
 from core.filter.single import SingleExtractor
 from core.filter.pair import PairExtractor
-from core.filter.capital import Decap
+from core.filter.dedup import DeDuplicate
+
+from core.histo.histogram import Histogram
 
 class PDFClouder(object):
     def __init__(self, pdf):
@@ -18,7 +20,7 @@ class PDFClouder(object):
         pdfex = PDFExtractor(self.pdf)
         single = SingleExtractor()
         pair = PairExtractor()
-        decap = Decap()
+        dedup = DeDuplicate()
         
         words = pdfex.get_words(cleanup=True)
         
@@ -26,6 +28,6 @@ class PDFClouder(object):
         pairs = pair.extract(words)
         
         histo = pair.dedup(singles, pairs)
-        histo = decap.decap(histo)
+        histo = dedup.dedup(histo)
         
         return histo
