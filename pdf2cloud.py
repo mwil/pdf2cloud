@@ -10,7 +10,7 @@ if len(sys.argv) > 1:
     pdf = sys.argv[1]
 else:
     pdf = os.path.join(proj_path, 'examples', 'SRC-Wilhelm.pdf')
-    #pdf = '/Users/mwilhelm/Desktop/nessa.pdf'
+    pdf = '/Users/mwilhelm/Desktop/nessa.pdf'
     #pdf = '/Users/mwilhelm/Desktop/MobiCom_2012/mobicom/p89.pdf'
     
 pdfc = PDFClouder(pdf)

@@ -13,8 +13,16 @@ class Histogram(defaultdict):
         super(Histogram, self).__init__(int)
         
         for word in words:
-            self[word] += 1
-        
+            if word:
+                self[word] += 1
+    
+    def merge(self, *others):
+        for other in others:
+            for item in other:
+                self[item] += other[item]
+                
+        return self
+    
     def __repr__(self):
         data = sorted(self.iteritems(), key=itemgetter(1), reverse=True)
         return '\n'.join(['%s: %i' % (word, cnt) for word, cnt in data if cnt > 1])

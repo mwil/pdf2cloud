@@ -28,6 +28,10 @@ fig
 section
 sec
 sect
+chapter
+chapters
+part
+parts
 table
 paper
 papers
@@ -52,3 +56,4 @@ lead
 leads
 given
 known
+such

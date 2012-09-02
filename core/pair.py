@@ -15,13 +15,18 @@ class PairExtractor(object):
     
     # Find all possible pairs in the list, pruning comes later (dedup below)
     #
-    def extract(self, words):
+    def extract(self, words, wfilter=[]):
         res_words = []
             
         prev = ''
         for word in words:
+            if not word or word not in set(wfilter):
+                prev = ''
+                continue
+            
             if prev:
                 res_words.append("~".join([prev, word]))
+            
             prev = word
 
         return Histogram(res_words)
@@ -40,16 +45,10 @@ class PairExtractor(object):
         
         for pair, cnt in pairs.items():
             words = pair.split('~')
-            all_words_valid = True
-            
-            for word in words:
-                if word not in singles:
-                    all_words_valid = False
-                    
-            if all_words_valid:
-                result[pair] += cnt
+                                
+            result[pair] += cnt
                 
-                for word in words:
-                    result[word] -= cnt
+            for word in words:
+                result[word] -= cnt
         
         return result
