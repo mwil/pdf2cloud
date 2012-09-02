@@ -51,6 +51,6 @@ class TripleExtractor(object):
             result[triple] += cnt
                 
             for word in words:
-                result[word] = pairs[word] - cnt
+                result[word] -= cnt
         
         return result

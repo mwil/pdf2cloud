@@ -47,8 +47,7 @@ class PairExtractor(object):
             if cnt < 3:
                 continue
             
-            words = pair.split('~')
-                                
+            words = pair.split('~')            
             result[pair] += cnt
                 
             for word in words:
