@@ -41,9 +41,12 @@ class PairExtractor(object):
     # {test:3, tests:2} and {the~test:1, test~tests:2} -> {test:1, tests:0, test~tests:2}
     #
     def dedup(self, singles, pairs):
-        result = singles
+        result = Histogram()
         
         for pair, cnt in pairs.items():
+            if cnt < 3:
+                continue
+            
             words = pair.split('~')
                                 
             result[pair] += cnt

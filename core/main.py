@@ -30,9 +30,10 @@ class PDFClouder(object):
         singles = Histogram(words)
         
         # FIXME: don't feed cleanup words, this makes weird pairs
-        pairs = pair.extract(words, wfilter=singles)
+        pairs = pair.extract(words, wfilter=singles)        
         triples = triple.extract(words, wfilter=pairs)
         
+        # FIXME: this kills too many singles, something's wrong here.
         pairs = pair.dedup(singles, pairs)
         triples = triple.dedup(pairs, triples)
         

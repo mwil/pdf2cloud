@@ -28,11 +28,14 @@ class WordFilter(object):
         histo = Histogram(words)
         
         for word in words:
+            #print word + ' -->',
             word = self.filter(word)
             if word:
                 word = self.decap(word, histo)
             if word:
                 word = self.deplural(word, histo)             
+            
+            #print ('**filtered**' if not word else word)
             
             res_words.append(word)
                 
@@ -50,7 +53,7 @@ class WordFilter(object):
                 return ''
             
         # FIXME this deletes some wanted strings like 802.15.4 or similar
-        if not word[0].isalpha() or word[-1].isdigit():
+        if not word[0].isalpha() and (word[-1].isdigit() and word.find('.') == -1):
             return ''
             
         return word

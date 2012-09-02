@@ -15,4 +15,4 @@ else:
     
 pdfc = PDFClouder(pdf)
 result = pdfc.get_histo(refs=True)
-result.flatten(min_cnt=3)
+result.flatten(min_cnt=2)

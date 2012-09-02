@@ -28,10 +28,10 @@ class PDFExtractor(object):
         
         raw_words = raw_words.getvalue().decode('utf-8')
         words = self.split_n_merge(raw_words)
-            
+           
         if cleanup:
             words = self.cleanup_words(words, refs=refs)
-             
+        
         return words
     
     def cleanup_words(self, words, refs=False):
@@ -57,6 +57,7 @@ class PDFExtractor(object):
         words = []
         for word in raw_words.split():
             word = word.strip(u'.,:;()"\u201d\u201c')
+            word = word.lstrip('-+')
             
             if word:
                 results = [word]
@@ -85,7 +86,8 @@ class PDFExtractor(object):
                 hyph = word[:-1]
                 continue
             
-            if not word.isalpha() and word.find('-') == -1:
+            # FIXME Clean out non-alpha-numeric strings, too aggressive?
+            if not word.isalpha() and word.find('.') < 0 and word.find('-') == -1:
                 continue
             
             res_words.append(word)

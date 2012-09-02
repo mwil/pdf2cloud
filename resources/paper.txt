@@ -57,3 +57,11 @@ leads
 given
 known
 such
+same
+cm
+mm
+i
+ij
+however
+whether
+those

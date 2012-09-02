@@ -42,12 +42,15 @@ class TripleExtractor(object):
         result = Histogram()
         
         for triple, cnt in triples.items():
+            if cnt < 3:
+                continue
+            
             words = triple.split('~')
             words = ['~'.join(words[:2]), '~'.join(words[1:])]
                     
             result[triple] += cnt
                 
             for word in words:
-                result[word] -= cnt
+                result[word] = pairs[word] - cnt
         
         return result
