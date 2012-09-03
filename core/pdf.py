@@ -15,7 +15,10 @@ class PDFExtractor(object):
     def __init__(self, pdf):
         self.pdf = pdf
     
-    # returns a list of 'words,' a sequence of letters with whitespace in-between.    
+    #####################################################
+    '''
+    returns a list of 'words,' a sequence of letters with whitespace in-between.
+    '''    
     def get_words(self, cleanup=True, refs=False):
         rsrcmgr = PDFResourceManager()
         raw_words = StringIO()
@@ -34,6 +37,10 @@ class PDFExtractor(object):
         
         return words
     
+    '''
+    Call all cleanup functions below in a sensible order. Also, remove the reference
+    section.
+    '''
     def cleanup_words(self, words, refs=False):
         clean_words = []
         
@@ -42,7 +49,8 @@ class PDFExtractor(object):
             word = self.zap_punctuation(word)
             
             if word:
-                # Try to cut off References section (that is hopefully at the end) ...
+                # Try to cut off References section (that is hopefully at the end).
+                # FIXME: this aught not be a paper about references ...
                 if refs or word not in ['References', 'REFERENCES']:
                     clean_words.append(word)
                 else:
@@ -50,6 +58,11 @@ class PDFExtractor(object):
             
         return clean_words
     
+    #####################################################
+    '''
+    Strip punctuation and split words from the initial input string. Then try to merge
+    hyphened words to single units. 
+    '''
     def split_n_merge(self, raw_words):
         splitters = [u'\u2212', u'\u2014' ]
         
@@ -71,6 +84,7 @@ class PDFExtractor(object):
             words.extend(results)
         
         # de-hyphen the text, just glue together words that end in '-'
+        # FIXME: some words should keep their hyphen, e.g., left-handed.
         res_words = []
         hyph = None
         
@@ -94,16 +108,23 @@ class PDFExtractor(object):
             
         return res_words
     
+    #####################################################
+    '''
+    Replace symbols commonly found in research papers such as ligatures, dashes, 
+    quotation marks, ...
+    '''
     def replace_unicode(self, word):
         lig_map = {u'\ufb01':'fi', u'\ufb02':'fl', u'\ufb00':'ff', u'\ufb03':'ffi',
-                   u'\u2019':"'", u'\u2013':'-', 
-                   u'\u201d':'"', u'\u201c':'"'}
+                   u'\u2019':"'", u'\u2013':'-', u'\u201d':'"', u'\u201c':'"'}
         
         for lig, repl in lig_map.items():
             word = word.replace(lig, repl)
         
         return word
-        
+    
+    '''
+    Remove non-words and markers, such as commonly used reference marks ([1]).
+    '''      
     def zap_punctuation(self, word):
         if word and word[0] == '[' or word[-1] == ']':
             word = None
@@ -118,7 +139,6 @@ class PDFExtractor(object):
 
 if __name__ == '__main__':
     pdfex = PDFExtractor('/Users/mwilhelm/Desktop/nessa.pdf')
-    
     words = pdfex.get_words()
     
     print(words)

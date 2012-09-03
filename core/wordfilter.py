@@ -6,7 +6,6 @@ Created on 31.08.2012
 '''
 
 from os.path import join, dirname
-
 from histogram import Histogram
 
 RESOURCE_PATH = join(dirname(__file__), '..', 'resources')
@@ -21,7 +20,9 @@ class WordFilter(object):
             self.verbs = set([word.strip() for word in fd.readlines()])
      
     #####################################################      
-            
+    '''
+    Remove words that may skew the tag cloud (common words, PDF extraction errors, ...)
+    '''    
     def cleanup(self, words):
         res_words = []
         
@@ -41,10 +42,11 @@ class WordFilter(object):
                 
         return res_words
     
-    #####################################################
-    
-    # Remove strings that are obviously bad, e.g., appear in the most common words
-    #
+    #####################################################  
+    '''
+    Remove strings that are obviously bad, e.g., appear in the most common words, contain
+    only digits, are too short, ...
+    '''
     def filter(self, word):
         if len(word) == 1:
             return ''
@@ -58,11 +60,10 @@ class WordFilter(object):
             
         return word
     
-    
-    #######################################################
-    
-    # Find the most frequent word in terms of capitalization
-    #
+    #######################################################  
+    '''
+    Find the most frequent word in terms of capitalization and keep it.
+    '''
     def decap(self, word, histo):
         lword = word.lower()
         cword = word.capitalize()
@@ -79,8 +80,12 @@ class WordFilter(object):
         else:
             return word
     
-    # Find the most frequent word in terms of number
-    #
+    '''
+    Find the most frequent word in terms of numerus.
+    
+    Currently we look at the simplest case, words where we have both a version ending
+    in 's' and one without, e.g., word and words. 
+    '''
     def deplural(self, word, histo):
         if word[-1] == 's':
             sg_word = word[:-1]

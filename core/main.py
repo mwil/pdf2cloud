@@ -12,12 +12,20 @@ from core.triple import TripleExtractor
 
 from core.histogram import Histogram
 
-# Bundle together the PDF extraction and the processing steps on the extracted words
-#
 class PDFClouder(object):
+    '''
+    Bundle together the PDF extraction and the processing steps on the extracted words
+    '''
+       
     def __init__(self, pdf):
         self.pdf = pdf
-        
+    
+    '''
+    Extract a histogram of word occurrences, trying to eliminate word variations.
+    
+    Parameters:
+       refs: when True, omit the references section of a paper to eliminate ref patterns
+    '''
     def get_histo(self, refs=False):
         pdfex = PDFExtractor(self.pdf)
         pair = PairExtractor()

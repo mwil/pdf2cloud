@@ -11,10 +11,10 @@ class TripleExtractor(object):
     def __init__(self):
         pass
     
-    #####################################################
-    
-    # Find all possible triples in the list, pruning comes later (dedup below)
-    #
+    ##################################################### 
+    '''
+    Find all possible triples in the list, pruning comes later (dedup below)
+    '''
     def extract(self, words, wfilter=[]):
         res_words = []
             
@@ -33,11 +33,11 @@ class TripleExtractor(object):
         return Histogram(res_words)
 
     #####################################################
-    
-    # Remove duplicates from singles that also appear in triples.
-    # Since singles are cleaned up, keep only triples that contain only checked words.
-    # Recalculate count of singles, subtract what we gain from the triples.
-    #
+    '''
+    Remove duplicates from singles that also appear in triples.
+    Since singles are cleaned up, keep only triples that contain only checked words.
+    Recalculate count of singles, subtract what we gain from the triples.
+    '''
     def dedup(self, pairs, triples):
         result = Histogram()
         

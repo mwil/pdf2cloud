@@ -12,9 +12,9 @@ class PairExtractor(object):
         pass
     
     #####################################################
-    
-    # Find all possible pairs in the list, pruning comes later (dedup below)
-    #
+    '''
+    Find all possible pairs in the list, pruning comes later (dedup below)
+    '''
     def extract(self, words, wfilter=[]):
         res_words = []
             
@@ -32,14 +32,14 @@ class PairExtractor(object):
         return Histogram(res_words)
 
     #####################################################
-    
-    # Remove duplicates from singles that also appear in pairs.
-    # Since singles are cleaned up, keep only pairs that contain only checked words.
-    # Recalculate count of singles, subtract what we gain from the pairs.
-    # 
-    # For example (the~test is not accepted because of 'the')
-    # {test:3, tests:2} and {the~test:1, test~tests:2} -> {test:1, tests:0, test~tests:2}
-    #
+    '''
+    Remove duplicates from singles that also appear in pairs.
+    Since singles are cleaned up, keep only pairs that contain only checked words.
+    Recalculate count of singles, subtract what we gain from the pairs.
+     
+    For example (the~test is not accepted because of 'the'):
+    {test:3, tests:2} and {the~test:1, test~tests:2} -> {test:1, tests:0, test~tests:2}
+    '''
     def dedup(self, singles, pairs):
         result = Histogram()
         
